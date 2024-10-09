@@ -39,6 +39,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CampaignDTO'
 
+
   /api/v1/campaigns/{id}:
     get:
       tags:
@@ -59,6 +60,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CampaignDTO'
+    put:
+      tags:
+        - Campaigns
+      operationId: "putCampaign"
+      description: "Update a campaign"
+      parameters:
+        - name: id
+          in: path
+          description: "ID of campaign to update"
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewCampaignDTO'
+      responses:
+          '200':
+              description: "successful operation"
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CampaignDTO'
+          '404':
+              description: "Campaign not found"
+
+
 components:
   schemas:
     CampaignDTO:
