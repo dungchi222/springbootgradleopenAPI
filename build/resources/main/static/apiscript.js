@@ -4,12 +4,21 @@ $(document).ready(function() {
     $('#showPostForm').on('click', function() {
         $('#postForm').show();
         $('#getForm').hide();
+        $('#putForm').hide();
         $('#response').text(''); // Clear the response
     });
 
     $('#showGetForm').on('click', function() {
         $('#postForm').hide();
         $('#getForm').show();
+        $('#putForm').hide();
+        $('#response').text(''); // Clear the response
+    });
+
+    $('#showPutForm').on('click', function() {
+        $('#postForm').hide();
+        $('#getForm').hide();
+        $('#putForm').show();
         $('#response').text(''); // Clear the response
     });
 
@@ -69,6 +78,30 @@ $(document).ready(function() {
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('GET by ID request failed:', textStatus, errorThrown);
+                $('#response').text('Error: ' + errorThrown);
+            }
+        });
+    });
+
+    $('#putApiForm').on('submit', function(event) { // New PUT request handler
+        event.preventDefault();
+
+        const campaignId = $('#putCampaignId').val();
+        const inputData = JSON.parse($('#putInputData').val());
+
+        console.log("Input Data:", inputData);
+        $.ajax({
+            url: `/api/v1/campaigns/${campaignId}`,
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(inputData),
+            dataType: 'json',
+            success: function(data) {
+                console.log('PUT request successful:', data);
+                $('#response').text(JSON.stringify(data, null, 2));
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('PUT request failed:', textStatus, errorThrown);
                 $('#response').text('Error: ' + errorThrown);
             }
         });

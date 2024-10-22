@@ -9,6 +9,10 @@
             width: 400px; /* Adjust the width as needed */
             height: 200px; /* Adjust the height as needed */
         }
+        #putInputData {
+            width: 600px; /* Adjust the width as needed */
+            height: 300px; /* Adjust the height as needed */
+        }
         .form-container {
             display: none;
         }
@@ -29,6 +33,7 @@
 <h1>API Call Example</h1>
 <button id="showPostForm">Show POST Form</button>
 <button id="showGetForm">Show GET Form</button>
+<button id="showPutForm">Show PUT Form</button> <!-- New button for PUT form -->
 
 <div id="postForm" class="form-container">
     <h2>POST Request</h2>
@@ -45,6 +50,17 @@
     <input type="text" id="campaignId" name="campaignId">
     <button id="getByIdButton">Get Campaign by ID</button>
     <button id="getRequestButton">Get Campaigns</button>
+</div>
+
+<div id="putForm" class="form-container"> <!-- New form for PUT request -->
+    <h2>PUT Request</h2>
+    <form id="putApiForm">
+        <label for="putCampaignId">Campaign ID:</label>
+        <input type="text" id="putCampaignId" name="putCampaignId" required>
+        <label for="putInputData">Input Data:</label>
+        <textarea id="putInputData" name="putInputData" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
 </div>
 
 <div id="response"></div>
