@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Call Example</title>
+    <style>
+        #inputData {
+            width: 400px; /* Adjust the width as needed */
+            height: 200px; /* Adjust the height as needed */
+        }
+        .form-container {
+            display: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h1>API Call Example</h1>
+<button id="showPostForm">Show POST Form</button>
+<button id="showGetForm">Show GET Form</button>
+
+<div id="postForm" class="form-container">
+    <h2>POST Request</h2>
+    <form id="apiForm">
+        <label for="inputData">Input Data:</label>
+        <textarea id="inputData" name="inputData" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<div id="getForm" class="form-container">
+    <h2>GET Request</h2>
+    <label for="campaignId">Campaign ID:</label>
+    <input type="text" id="campaignId" name="campaignId">
+    <button id="getByIdButton">Get Campaign by ID</button>
+    <button id="getRequestButton">Get Campaigns</button>
+</div>
+
+<div id="response"></div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="/apiscript.js"></script>
+
+</body>
+</html>
