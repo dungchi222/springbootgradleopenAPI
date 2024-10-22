@@ -116,6 +116,9 @@ components:
         detailsUri:
           type: string
           nullable: true
+        pictureName:
+          type: string
+          nullable: true
     NewCampaignDTO:
       type: object
       required:
