@@ -142,3 +142,6 @@ components:
         detailsUri:
             type: string
             example: "https://example.com/campaigns/1"
+        pictureName:
+            type: string
+            example: "campaign.jpg"
