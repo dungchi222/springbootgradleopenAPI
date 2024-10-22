@@ -60,6 +60,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CampaignDTO'
+        '404':
+          description: "No campaign with the specified id"
     put:
       tags:
         - Campaigns

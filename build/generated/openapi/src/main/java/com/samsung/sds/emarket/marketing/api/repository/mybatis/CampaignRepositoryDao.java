@@ -13,10 +13,10 @@ public interface CampaignRepositoryDao extends CampaignRepository {
     @Select("select max(id) from campaigns")
     int getMaxId();
 
-    @Select("select id, description, start_date, name, pictureUri, end_date, detailsUri, pictureName from campaigns")
+    @Select("select id, description, start_date as startDate, name, pictureUri, end_date as endDate, detailsUri, pictureName from campaigns")
     public List<CampaignEntity> listCampaigns();
 
-    @Select("select id, description, start_date, name, pictureUri, end_date, detailsUri, pictureName from campaigns where id = #{id}")
+    @Select("select id, description, start_date as startDate, name, pictureUri, end_date as endDate, detailsUri, pictureName from campaigns where id = #{id}")
     public CampaignEntity getCampaign(int id);
 
 //    @Insert("insert into campaigns (description, start_date, name, pictureUri, end_date, detailsUri, pictureName) values (#{description}, #{startDate}, #{name}, #{pictureUri}, #{endDate}, #{detailsUri}, #{pictureName})")

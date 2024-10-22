@@ -71,10 +71,7 @@ public class CampaignServiceImpl implements CampaignService {
 
     @Override
     public CampaignVO getCampaign(Integer id) {
-        CampaignVO campaignVO = new CampaignVO();
-        campaignVO.setId(id);
-        campaignVO.setName("campaign " + id);
-
-        return campaignVO;
+        CampaignEntity campaignEntity = campaignRepository.getCampaign(id);
+        return voMapper.toCampaignVO(campaignEntity);
     }
 }

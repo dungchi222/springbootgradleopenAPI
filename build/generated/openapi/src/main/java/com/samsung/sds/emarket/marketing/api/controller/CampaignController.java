@@ -30,7 +30,11 @@ public class CampaignController implements CampaignsApi {
     @Override
     public ResponseEntity<CampaignDTO> getCampaign(Integer id) {
         CampaignVO campaignVO = campaignService.getCampaign(id);
-        return ResponseEntity.ok().body(dtoMapper.toCampaignDTO(campaignVO));
+        if (campaignVO == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok().body(dtoMapper.toCampaignDTO(campaignVO));
+        }
     }
 
     @Override
