@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Call Example</title>
     <style>
-        #inputData {
-            width: 400px; /* Adjust the width as needed */
-            height: 200px; /* Adjust the height as needed */
-        }
-        #putInputData {
+        #inputData, #putInputData {
             width: 600px; /* Adjust the width as needed */
             height: 300px; /* Adjust the height as needed */
         }
@@ -33,13 +29,25 @@
 <h1>API Call Example</h1>
 <button id="showPostForm">Show POST Form</button>
 <button id="showGetForm">Show GET Form</button>
-<button id="showPutForm">Show PUT Form</button> <!-- New button for PUT form -->
+<button id="showPutForm">Show PUT Form</button>
 
 <div id="postForm" class="form-container">
     <h2>POST Request</h2>
     <form id="apiForm">
-        <label for="inputData">Input Data:</label>
-        <textarea id="inputData" name="inputData" required></textarea>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" required><br>
+        <label for="from">From:</label>
+        <input type="date" id="from" name="from" required><br>
+        <label for="to">To:</label>
+        <input type="date" id="to" name="to" required><br>
+        <label for="pictureURL">Picture URL:</label>
+        <input type="text" id="pictureURL" name="pictureURL" required><br>
+        <label for="detailsUri">Details URI:</label>
+        <input type="text" id="detailsUri" name="detailsUri" required><br>
+        <label for="pictureName">Picture Name:</label>
+        <input type="text" id="pictureName" name="pictureName" required><br>
         <button type="submit">Submit</button>
     </form>
 </div>
@@ -52,13 +60,25 @@
     <button id="getRequestButton">Get Campaigns</button>
 </div>
 
-<div id="putForm" class="form-container"> <!-- New form for PUT request -->
+<div id="putForm" class="form-container">
     <h2>PUT Request</h2>
     <form id="putApiForm">
-        <label for="putCampaignId">Campaign ID:</label>
-        <input type="text" id="putCampaignId" name="putCampaignId" required>
-        <label for="putInputData">Input Data:</label>
-        <textarea id="putInputData" name="putInputData" required></textarea>
+        <label for="putCampaignId">Modification Campaign ID:</label>
+        <input type="text" id="putCampaignId" name="putCampaignId" required><br>
+        <label for="putName">Name:</label>
+        <input type="text" id="putName" name="putName" required><br>
+        <label for="putDescription">Description:</label>
+        <input type="text" id="putDescription" name="putDescription" required><br>
+        <label for="putFrom">From:</label>
+        <input type="date" id="putFrom" name="putFrom" required><br>
+        <label for="putTo">To:</label>
+        <input type="date" id="putTo" name="putTo" required><br>
+        <label for="putPictureURL">Picture URL:</label>
+        <input type="text" id="putPictureURL" name="putPictureURL" required><br>
+        <label for="putDetailsUri">Details URI:</label>
+        <input type="text" id="putDetailsUri" name="putDetailsUri" required><br>
+        <label for="putPictureName">Picture Name:</label>
+        <input type="text" id="putPictureName" name="putPictureName" required><br>
         <button type="submit">Submit</button>
     </form>
 </div>

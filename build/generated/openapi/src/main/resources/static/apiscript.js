@@ -13,6 +13,7 @@ $(document).ready(function() {
         $('#getForm').show();
         $('#putForm').hide();
         $('#response').text(''); // Clear the response
+        $('#getRequestButton').click(); // Trigger the get all campaigns function
     });
 
     $('#showPutForm').on('click', function() {
@@ -22,21 +23,60 @@ $(document).ready(function() {
         $('#response').text(''); // Clear the response
     });
 
+    // $('#apiForm').on('submit', function(event) {
+    //     event.preventDefault();
+    //
+    //     const inputData = JSON.parse($('#inputData').val());
+    //
+    //     console.log("Input Data:", inputData);
+    //     $.ajax({
+    //         url: '/api/v1/campaigns',
+    //         type: 'POST',
+    //         contentType: 'application/json',
+    //         data: JSON.stringify(inputData),
+    //         dataType: 'json',
+    //         success: function(data) {
+    //             console.log('AJAX request successful:', data);
+    //             $('#response').text(JSON.stringify(data, null, 2));
+    //         },
+    //         error: function(jqXHR, textStatus, errorThrown) {
+    //             console.error('AJAX request failed:', textStatus, errorThrown);
+    //             $('#response').text('Error: ' + errorThrown);
+    //         }
+    //     });
+    // });
+
     $('#apiForm').on('submit', function(event) {
         event.preventDefault();
 
-        const inputData = JSON.parse($('#inputData').val());
+        const fromDate = new Date($('#from').val());
+        const toDate = new Date($('#to').val());
 
-        console.log("Input Data:", inputData);
+        const offsetFromDate = fromDate.toISOString(); // Convert to ISO string with offset
+        const offsetToDate = toDate.toISOString(); // Convert to ISO string with offset
+
+        const inputData = JSON.stringify({
+            name: $('#name').val(),
+            description: $('#description').val(),
+            from: offsetFromDate,
+            to: offsetToDate,
+            pictureURL: $('#pictureURL').val(),
+            detailsUri: $('#detailsUri').val(),
+            pictureName: $('#pictureName').val()
+        });
+
+        const processData = JSON.parse(inputData);
+
+        console.log("Input Data:", processData);
         $.ajax({
             url: '/api/v1/campaigns',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(inputData),
+            data: JSON.stringify(processData),
             dataType: 'json',
             success: function(data) {
                 console.log('AJAX request successful:', data);
-                $('#response').text(JSON.stringify(data, null, 2));
+                $('#response').html(formatResponseAsTable(data));
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('AJAX request failed:', textStatus, errorThrown);
@@ -45,6 +85,7 @@ $(document).ready(function() {
         });
     });
 
+
     $('#getRequestButton').on('click', function() {
         $.ajax({
             url: '/api/v1/campaigns',
@@ -52,7 +93,7 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(data) {
                 console.log('GET request successful:', data);
-                $('#response').html(formatResponseAsTable(data));
+                $('#response').html('<h2>List of campaigns</h2>' + formatResponseAsTable(data));
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('GET request failed:', textStatus, errorThrown);
@@ -74,7 +115,7 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(data) {
                 console.log('GET by ID request successful:', data);
-                $('#response').html(formatResponseAsTable([data]));
+                $('#response').html(`<h2>Campaign ${campaignId}</h2>` + formatResponseAsTable([data]));
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('GET by ID request failed:', textStatus, errorThrown);
@@ -83,22 +124,39 @@ $(document).ready(function() {
         });
     });
 
-    $('#putApiForm').on('submit', function(event) { // New PUT request handler
+    $('#putApiForm').on('submit', function(event) {
         event.preventDefault();
 
         const campaignId = $('#putCampaignId').val();
-        const inputData = JSON.parse($('#putInputData').val());
 
-        console.log("Input Data:", inputData);
+        const fromDate = new Date($('#putFrom').val());
+        const toDate = new Date($('#putTo').val());
+
+        const offsetFromDate = fromDate.toISOString(); // Convert to ISO string with offset
+        const offsetToDate = toDate.toISOString(); // Convert to ISO string with offset
+
+        const inputData = JSON.stringify({
+            name: $('#putName').val(),
+            description: $('#putDescription').val(),
+            from: offsetFromDate,
+            to: offsetToDate,
+            pictureURL: $('#putPictureURL').val(),
+            detailsUri: $('#putDetailsUri').val(),
+            pictureName: $('#putPictureName').val()
+        });
+
+        const processData = JSON.parse(inputData);
+
+        console.log("Input Data:", processData);
         $.ajax({
             url: `/api/v1/campaigns/${campaignId}`,
             type: 'PUT',
             contentType: 'application/json',
-            data: JSON.stringify(inputData),
+            data: JSON.stringify(processData),
             dataType: 'json',
             success: function(data) {
                 console.log('PUT request successful:', data);
-                $('#response').text(JSON.stringify(data, null, 2));
+                $('#response').html(formatResponseAsTable(data));
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('PUT request failed:', textStatus, errorThrown);
