@@ -1,50 +1,37 @@
 $(document).ready(function() {
-    console.log("script.js is loaded and running");
-
     $('#showPostForm').on('click', function() {
+        $('.form-container').hide();
         $('#postForm').show();
-        $('#getForm').hide();
-        $('#putForm').hide();
-        $('#response').text(''); // Clear the response
     });
 
     $('#showGetForm').on('click', function() {
-        $('#postForm').hide();
+        $('.form-container').hide();
         $('#getForm').show();
-        $('#putForm').hide();
-        $('#response').text(''); // Clear the response
-        $('#getRequestButton').click(); // Trigger the get all campaigns function
+        $('#getRequestButton').click(); // Trigger the getRequestButton click event
     });
 
     $('#showPutForm').on('click', function() {
-        $('#postForm').hide();
-        $('#getForm').hide();
+        $('.form-container').hide();
         $('#putForm').show();
-        $('#response').text(''); // Clear the response
     });
 
-    // $('#apiForm').on('submit', function(event) {
-    //     event.preventDefault();
-    //
-    //     const inputData = JSON.parse($('#inputData').val());
-    //
-    //     console.log("Input Data:", inputData);
-    //     $.ajax({
-    //         url: '/api/v1/campaigns',
-    //         type: 'POST',
-    //         contentType: 'application/json',
-    //         data: JSON.stringify(inputData),
-    //         dataType: 'json',
-    //         success: function(data) {
-    //             console.log('AJAX request successful:', data);
-    //             $('#response').text(JSON.stringify(data, null, 2));
-    //         },
-    //         error: function(jqXHR, textStatus, errorThrown) {
-    //             console.error('AJAX request failed:', textStatus, errorThrown);
-    //             $('#response').text('Error: ' + errorThrown);
-    //         }
-    //     });
-    // });
+    $('#createCampaignButton').on('click', function() {
+        $('.form-container').hide();
+        $('#postForm').show();
+    });
+
+    $('#updateCampaignButton').on('click', function() {
+        $('.form-container').hide();
+        $('#putForm').show();
+    });
+
+    $('#returnToGetFormButton').on('click', function() {
+        $('#showGetForm').click(); // Return to Show GET Form
+    });
+
+    $('#returnToGetFormButtonPut').on('click', function() {
+        $('#showGetForm').click(); // Return to Show GET Form
+    });
 
     $('#apiForm').on('submit', function(event) {
         event.preventDefault();
@@ -52,8 +39,8 @@ $(document).ready(function() {
         const fromDate = new Date($('#from').val());
         const toDate = new Date($('#to').val());
 
-        const offsetFromDate = fromDate.toISOString(); // Convert to ISO string with offset
-        const offsetToDate = toDate.toISOString(); // Convert to ISO string with offset
+        const offsetFromDate = fromDate.toISOString();
+        const offsetToDate = toDate.toISOString();
 
         const inputData = JSON.stringify({
             name: $('#name').val(),
@@ -77,6 +64,7 @@ $(document).ready(function() {
             success: function(data) {
                 console.log('AJAX request successful:', data);
                 $('#response').html(formatResponseAsTable(data));
+                $('#showGetForm').click(); // Return to Show GET Form
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('AJAX request failed:', textStatus, errorThrown);
@@ -84,7 +72,6 @@ $(document).ready(function() {
             }
         });
     });
-
 
     $('#getRequestButton').on('click', function() {
         $.ajax({
@@ -132,8 +119,8 @@ $(document).ready(function() {
         const fromDate = new Date($('#putFrom').val());
         const toDate = new Date($('#putTo').val());
 
-        const offsetFromDate = fromDate.toISOString(); // Convert to ISO string with offset
-        const offsetToDate = toDate.toISOString(); // Convert to ISO string with offset
+        const offsetFromDate = fromDate.toISOString();
+        const offsetToDate = toDate.toISOString();
 
         const inputData = JSON.stringify({
             name: $('#putName').val(),
@@ -157,6 +144,7 @@ $(document).ready(function() {
             success: function(data) {
                 console.log('PUT request successful:', data);
                 $('#response').html(formatResponseAsTable(data));
+                $('#showGetForm').click(); // Return to Show GET Form
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('PUT request failed:', textStatus, errorThrown);
