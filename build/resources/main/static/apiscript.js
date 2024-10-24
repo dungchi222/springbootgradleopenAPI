@@ -83,6 +83,7 @@ $(document).ready(function() {
     $('#getRequestButton').on('click', function () {
         $('#response').html(''); // Clear the response
         $('#campaignList').show();
+
         $.ajax({
             url: '/api/v1/campaigns',
             type: 'GET',
@@ -90,6 +91,8 @@ $(document).ready(function() {
             success: function (data) {
                 console.log('GET request successful:', data);
                 $('#campaignList').html(formatCampaignsWithCheckboxes(data));
+                $('#deleteSelectedCampaignsButton').show();
+                $('#deleteSelectedCampaignButton').hide();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error('GET request failed:', textStatus, errorThrown);
@@ -228,12 +231,13 @@ $(document).ready(function() {
     function formatCampaignsWithCheckboxes(data) {
         let table = '<table><tr><th>Select</th><th>ID</th><th>Name</th><th>Description</th><th>From</th><th>To</th><th>Picture URL</th><th>Details URI</th><th>Picture Name</th></tr>';
         data.forEach(item => {
+            // console.log(item);
             table += `<tr id="campaignRow${item.id}">`;
             table += `<td><input type="checkbox" name="campaignCheckbox" value="${item.id}"></td>`;
             table += `<td>${item.id}</td>`;
             table += `<td>${item.name}</td>`;
             table += `<td>${item.description}</td>`;
-            table += `<td>${item.from}</td>`;
+            table += `<td>${item.From}</td>`;
             table += `<td>${item.to}</td>`;
             table += `<td>${item.pictureURL}</td>`;
             table += `<td>${item.detailsUri}</td>`;
@@ -241,8 +245,11 @@ $(document).ready(function() {
             table += '</tr>';
         });
         table += '</table>';
+        console.table(table);
         return table;
     }
+
+
 
     function formatResponseAsTable(data) {
         if (!Array.isArray(data)) {
