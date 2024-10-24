@@ -43,10 +43,40 @@ public interface CampaignsApi {
     }
 
     /**
+     * DELETE /api/v1/campaigns/{id}
+     * Delete a campaign
+     *
+     * @param id ID of campaign to delete (required)
+     * @return Campaign deleted successfully (status code 204)
+     *         or Campaign not found (status code 404)
+     */
+    @Operation(
+        operationId = "deleteCampaign",
+        description = "Delete a campaign",
+        tags = { "Campaigns" },
+        responses = {
+            @ApiResponse(responseCode = "204", description = "Campaign deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Campaign not found")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.DELETE,
+        value = "/api/v1/campaigns/{id}"
+    )
+    default ResponseEntity<Void> deleteCampaign(
+        @Parameter(name = "id", description = "ID of campaign to delete", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
+    ) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
      * GET /api/v1/campaigns/{id}
      *
      * @param id ID of campaign to return (required)
      * @return successful operation (status code 200)
+     *         or No campaign with the specified id (status code 404)
      */
     @Operation(
         operationId = "getCampaign",
@@ -54,7 +84,8 @@ public interface CampaignsApi {
         responses = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = CampaignDTO.class))
-            })
+            }),
+            @ApiResponse(responseCode = "404", description = "No campaign with the specified id")
         }
     )
     @RequestMapping(

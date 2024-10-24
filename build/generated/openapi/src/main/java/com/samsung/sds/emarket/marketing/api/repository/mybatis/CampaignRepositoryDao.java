@@ -31,4 +31,7 @@ public interface CampaignRepositoryDao extends CampaignRepository {
         "update campaigns set description = #{description}, start_date = #{startDate}, name = #{name}, pictureUri = #{pictureUri}, end_date = #{endDate}, detailsUri = #{detailsUri}, pictureName = #{pictureName} where id = #{id}"
     )
     public int updateCampaign(CampaignEntity entity);
+
+    @Delete("DELETE FROM campaigns WHERE id = #{id}")
+    int deleteCampaign(int id);
 }

@@ -70,6 +70,16 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
+    public boolean deleteCampaign(Integer id) {
+        CampaignEntity campaignEntity = campaignRepository.getCampaign(id);
+        if (campaignEntity == null) {
+            return false;
+        }
+        campaignRepository.deleteCampaign(id);
+        return true;
+    }
+
+    @Override
     public CampaignVO getCampaign(Integer id) {
         CampaignEntity campaignEntity = campaignRepository.getCampaign(id);
         return voMapper.toCampaignVO(campaignEntity);

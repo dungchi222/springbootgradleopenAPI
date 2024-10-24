@@ -20,4 +20,6 @@ public interface CampaignRepository {
     int updateCampaign(CampaignEntity entity);
 
     int getMaxId();
+
+    int deleteCampaign(int id);
 }

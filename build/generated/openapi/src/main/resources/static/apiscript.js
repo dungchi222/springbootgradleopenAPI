@@ -153,6 +153,27 @@ $(document).ready(function() {
         });
     });
 
+    $('#deleteCampaignButton').on('click', function() {
+        const campaignId = $('#campaignId').val();
+        if (!campaignId) {
+            alert('Please enter a campaign ID');
+            return;
+        }
+
+        $.ajax({
+            url: `/api/v1/campaigns/${campaignId}`,
+            type: 'DELETE',
+            success: function() {
+                alert('Campaign deleted successfully');
+                $('#showGetForm').click(); // Return to Show GET Form
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('DELETE request failed:', textStatus, errorThrown);
+                $('#response').text('Error: ' + errorThrown);
+            }
+        });
+    });
+
     function formatResponseAsTable(data) {
         if (!Array.isArray(data)) {
             data = [data];

@@ -12,4 +12,6 @@ public interface CampaignService {
     CampaignVO getCampaign(Integer id);
 
     CampaignVO updateCampaign(CampaignVO campaignVO);
+
+    boolean deleteCampaign(Integer id);
 }

@@ -96,4 +96,16 @@ public class CampaignController implements CampaignsApi {
                 return ResponseEntity.ok().body(dtoMapper.toCampaignDTO(result));
             }
     }
+
+
+    @Override
+    public ResponseEntity<Void> deleteCampaign(Integer id) {
+        boolean isDeleted = campaignService.deleteCampaign(id);
+        if (isDeleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
